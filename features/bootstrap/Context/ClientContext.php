@@ -7,11 +7,10 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Elecode\SoundCloud\Api\FakeApi;
-use Elecode\SoundCloud\Domain\Application;
-use Elecode\SoundCloud\Domain\User;
+use Elecode\SoundCloud\Api\FakeApiAdapter;
 use Elecode\SoundCloud\SoundCloud;
 use Elecode\SoundCloud\Storage\MemoryStorage;
+use Elecode\SoundCloud\Track;
 
 /**
  * Defines application features from the specific context.
@@ -20,6 +19,8 @@ class ClientContext implements Context, SnippetAcceptingContext
 {
     private $applicationClientId;
     private $applicationClientSecret;
+
+    private $trackList = array();
 
     /**
      * Initializes context.
@@ -30,18 +31,17 @@ class ClientContext implements Context, SnippetAcceptingContext
      */
     public function __construct()
     {
-        $this->dataSource = new MemoryStorage();
-        $this->api = FakeApi::withDataSource($this->dataSource);
+        $this->api = new FakeApiAdapter();
         $this->soundCloudWrapper = SoundCloud::withApi($this->api);
     }
 
     /**
-     * @Given there is an application with :clientId and :clientSecret
+     * @Given I have an application with :clientId and :clientSecret
      */
-    public function thereIsAnApplicationWithAnd($clientId, $clientSecret)
+    public function iHaveAnApplicationWith($clientId, $clientSecret)
     {
-        $application = Application::withIdAndSecret($clientId, $clientSecret);
-        $this->dataSource->storeApplication($application);
+        $this->applicationClientId = $clientId;
+        $this->applicationClientSecret = $clientSecret;
     }
 
     /**
@@ -49,33 +49,92 @@ class ClientContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAUserWithPassword($username, $password)
     {
-        $user = User::withUsernameAndPassword($username, $password);
-        $this->api->defineRoute(
-            '/oauth2/token',
-            [
-                'client_id' => $this->applicationClientId,
-                'client_secret' => $this->applicationClientSecret,
-                'username' => $username,
-                'password' => $password,
-                'grant_type' => 'password'
-            ],
-            '{ "access_token":"'
-        )
+        $this->api->fakeUser($this->applicationClientId, $this->applicationClientSecret, $username, $password);
     }
 
     /**
-     * @When I do password authentication with :arg1, :arg2, :arg3 and :arg4
+     * @When I do password authentication with :username and :password
      */
-    public function iDoPasswordAuthenticationWithAnd($arg1, $arg2, $arg3, $arg4)
+    public function iDoPasswordAuthenticationWith($username, $password)
     {
-        throw new PendingException();
+        $this->soundCloudWrapper->authenticate(
+            $this->applicationClientId,
+            $this->applicationClientSecret,
+            $username,
+            $password
+        );
     }
 
     /**
-     * @Then I receive an authentication token
+     * @Then I am authenticated to use an api
      */
-    public function iReceiveAnAuthenticationToken()
+    public function iAmAuthenticatedToUseAnApi()
     {
-        throw new PendingException();
+        expect($this->soundCloudWrapper->isAuthenticated())->toBe(true);
+    }
+
+    /**
+     * @Given I am authenticated user :username with password :password
+     */
+    public function iAmAuthenticatedUserWithPassword($username, $password)
+    {
+        $this->thereIsAUserWithPassword($username, $password);
+        $this->iDoPasswordAuthenticationWith($username, $password);
+    }
+
+    /**
+     * @Given I have a :arg2 seconds track :arg1
+     */
+    public function iHaveATrack($lengthInSeconds, $title)
+    {
+        $me = $this->soundCloudWrapper->getMe();
+        $this->api->fakeTracks($me->getId(), [['length' => $lengthInSeconds, 'title' => $title]]);
+    }
+
+    /**
+     * @When I request list of my tracks
+     */
+    public function iRequestListOfMyTracks()
+    {
+        $me = $this->soundCloudWrapper->getMe();
+        $this->trackList = $this->soundCloudWrapper->getTracksFromUser($me);
+    }
+
+    /**
+     * @Then my :arg2 seconds track :arg1 is in the list
+     */
+    public function iMySecondsTrackIsInTheList($duration, $title)
+    {
+        /** @var Track $track */
+        foreach ($this->trackList as $track) {
+            if ($track->getDuration() == $duration && $track->getTitle() == $title) {
+                return;
+            }
+        }
+        throw new \Exception(sprintf("Track '%s' with duration of %d seconds was not found", $title, $duration));
+    }
+
+    /**
+     * @Given I have following tracks:
+     */
+    public function iHaveFollowingTracks(TableNode $table)
+    {
+        $tracks = [];
+        foreach ($table->getHash() as $row) {
+            $tracks[] = [
+                'length' => $row['Duration'],
+                'title' => $row['Title']
+            ];
+        }
+        $me = $this->soundCloudWrapper->getMe();
+        $this->api->fakeTracks($me->getId(), $tracks);
+    }
+
+    /**
+     * @Then I have :arg1 tracks in list
+     */
+    public function iHaveTracksInList($arg1)
+    {
+        expect(count($this->trackList))->toBe((int)$arg1);
     }
 }
