@@ -37,7 +37,7 @@ class BuzzAdapter implements ApiAdapter
     private function getFullUrl($path, $parameters = array())
     {
         $buzzUrl = self::BASE_URL . $path;
-        if ($parameters) {
+        if (count($parameters) > 0) {
             $buzzUrl .= '?' . http_build_query($parameters);
         }
         return $buzzUrl;
