@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "878554b62b576df1097172dc2e3b8f28",
+    "hash": "2304d848366bc370ab8af8eb13a5656b",
     "packages": [
         {
             "name": "kriswallsmith/buzz",
@@ -864,6 +864,59 @@
                 "scraper"
             ],
             "time": "2014-11-28 09:48:17"
+        },
+        {
+            "name": "fabpot/php-cs-fixer",
+            "version": "1.7.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
+                "reference": "3eb4875503818b09b6dd6f689fda6b29fdcb2348"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/3eb4875503818b09b6dd6f689fda6b29fdcb2348",
+                "reference": "3eb4875503818b09b6dd6f689fda6b29fdcb2348",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.6",
+                "sebastian/diff": "~1.1",
+                "symfony/console": "~2.3",
+                "symfony/event-dispatcher": "~2.1",
+                "symfony/filesystem": "~2.1",
+                "symfony/finder": "~2.1",
+                "symfony/process": "~2.3",
+                "symfony/stopwatch": "~2.5"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "0.7.*@dev"
+            },
+            "bin": [
+                "php-cs-fixer"
+            ],
+            "type": "application",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\CS\\": "Symfony/CS/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dariusz Rumiński",
+                    "email": "dariusz.ruminski@gmail.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "A script to automatically fix Symfony Coding Standard",
+            "time": "2015-03-31 06:48:18"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4371,6 +4424,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "fabpot/php-cs-fixer": 20,
         "phpspec/phpspec": 20,
         "behat/behat": 20
     },
