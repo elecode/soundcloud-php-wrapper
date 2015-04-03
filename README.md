@@ -5,6 +5,8 @@
 
 BDD style implementation, proof of concept.
 
+[Documentation of public API](docs/ApiIndex.md)
+
 Supported features so far:
 * Application password authorization without a connect screen
 * Get user id
