@@ -1,0 +1,5 @@
+default:
+  suites:
+    client:
+      contexts:
+        - Context\ClientContext: ~

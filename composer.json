@@ -1,0 +1,23 @@
+{
+    "name": "elecode/soundcloud-php-wrapper",
+    "authors": [
+        {
+            "name": "Arturas Smorgun",
+            "email": "arturas@smorgun.lt"
+        }
+    ],
+    "require": {
+        "kriswallsmith/buzz": "0.13.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.1.*@dev",
+        "behat/behat": "3.0.*@dev",
+        "bossa/phpspec2-expect": "~1.0"
+    },
+    "autoload": {
+        "psr-0": { "": ["src/", "features/"] }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
