@@ -1,5 +1,8 @@
 # SoundCloud API Wrapper in PHP
 
+<a href="https://travis-ci.org/elecode/soundcloud-php-wrapper"><img src="https://travis-ci.org/elecode/soundcloud-php-wrapper.svg"/></a>
+<a href="https://scrutinizer-ci.com/g/elecode/soundcloud-php-wrapper"><img src="https://scrutinizer-ci.com/g/elecode/soundcloud-php-wrapper/badges/quality-score.png?b=master"/></a>
+
 BDD style implementation, proof of concept.
 
 Supported features so far:
