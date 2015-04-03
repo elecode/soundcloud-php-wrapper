@@ -43,7 +43,7 @@ class FakeApiAdapter implements ApiAdapter
             '/me.json',
             ['oauth_token' => '1-123456-123456789-abcd123456789'],
             [
-                "id" => 123456789
+                'id' => 123456789,
             ]
         );
     }
@@ -53,15 +53,15 @@ class FakeApiAdapter implements ApiAdapter
         $tracksResponse = [];
         foreach ($tracks as $track) {
             $tracksResponse[] = [
-                "id" => 123456789,
-                "created_at" => "2015/03/28 21:39:51 +0000",
-                "duration" => $track['length'],
-                "tag_list" => "",
-                "genre" => "",
-                "title" => $track['title'],
-                "description" => "",
-                "secret_token" => "s-WdV4l",
-                "secret_uri" => "https://api.soundcloud.com/tracks/123456789?secret_token=s-WdV4l"
+                'id' => 123456789,
+                'created_at' => '2015/03/28 21:39:51 +0000',
+                'duration' => $track['length'],
+                'tag_list' => '',
+                'genre' => '',
+                'title' => $track['title'],
+                'description' => '',
+                'secret_token' => 's-WdV4l',
+                'secret_uri' => 'https://api.soundcloud.com/tracks/123456789?secret_token=s-WdV4l',
             ];
         }
         $this->fakeGetResponse(

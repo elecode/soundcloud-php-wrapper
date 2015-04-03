@@ -19,6 +19,7 @@ class ClientContext implements Context, SnippetAcceptingContext
     private $applicationClientId;
     private $applicationClientSecret;
 
+    private $me;
     private $trackList = array();
 
     /**
@@ -79,6 +80,23 @@ class ClientContext implements Context, SnippetAcceptingContext
     {
         $this->thereIsAUserWithPassword($username, $password);
         $this->iDoPasswordAuthenticationWith($username, $password);
+    }
+
+    /**
+     * @When I request my information
+     */
+    public function iRequestMyInformation()
+    {
+        $this->me = $this->soundCloudWrapper->getMe();
+    }
+
+    /**
+     * @Then I have a user object with an id
+     */
+    public function iHaveAUserObjectWithAnId()
+    {
+        expect($this->me)->toHaveType('Elecode\SoundCloud\ValueObject\User');
+        expect($this->me->getId() > 0)->toBe(true);
     }
 
     /**

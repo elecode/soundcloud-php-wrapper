@@ -30,12 +30,13 @@ class SoundCloud
                 'client_secret' => $clientSecret,
                 'username' => $username,
                 'password' => $password,
-                'grant_type' => 'password'
+                'grant_type' => 'password',
             ]
         );
         if (array_key_exists('access_token', $response)) {
             $this->accessToken = $response['access_token'];
         }
+
         return $this->isAuthenticated();
     }
 
@@ -47,6 +48,7 @@ class SoundCloud
     public function getMe()
     {
         $userData = $this->api->get('/me.json', ['oauth_token' => $this->accessToken]);
+
         return User::withId($userData['id']);
     }
 
@@ -63,6 +65,7 @@ class SoundCloud
                 $trackData['secret_token']
             );
         }
+
         return $tracks;
     }
 }
