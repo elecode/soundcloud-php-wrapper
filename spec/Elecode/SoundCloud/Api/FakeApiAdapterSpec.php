@@ -33,7 +33,7 @@ class FakeApiAdapterSpec extends ObjectBehavior
         
         $this->get('/me.json', ['oauth_token' => '1-123456-123456789-abcd123456789'])->shouldReturn(
             [
-                "id" => 3207
+                "id" => 123456789
             ]
         );
     }

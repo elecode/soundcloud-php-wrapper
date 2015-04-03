@@ -3,8 +3,8 @@
 namespace spec\Elecode\SoundCloud;
 
 use Elecode\SoundCloud\Api\ApiAdapter;
-use Elecode\SoundCloud\Track;
-use Elecode\SoundCloud\User;
+use Elecode\SoundCloud\ValueObject\Track;
+use Elecode\SoundCloud\ValueObject\User;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

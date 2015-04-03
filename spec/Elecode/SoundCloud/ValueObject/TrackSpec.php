@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Elecode\SoundCloud;
+namespace spec\Elecode\SoundCloud\ValueObject;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

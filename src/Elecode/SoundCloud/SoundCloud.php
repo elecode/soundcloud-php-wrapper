@@ -3,6 +3,8 @@
 namespace Elecode\SoundCloud;
 
 use Elecode\SoundCloud\Api\ApiAdapter;
+use Elecode\SoundCloud\ValueObject\Track;
+use Elecode\SoundCloud\ValueObject\User;
 
 class SoundCloud
 {

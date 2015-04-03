@@ -1,6 +1,6 @@
 <?php
 
-namespace Elecode\SoundCloud;
+namespace Elecode\SoundCloud\ValueObject;
 
 class User
 {

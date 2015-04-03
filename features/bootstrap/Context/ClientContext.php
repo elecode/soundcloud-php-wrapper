@@ -9,8 +9,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Elecode\SoundCloud\Api\FakeApiAdapter;
 use Elecode\SoundCloud\SoundCloud;
-use Elecode\SoundCloud\Storage\MemoryStorage;
-use Elecode\SoundCloud\Track;
+use Elecode\SoundCloud\ValueObject\Track;
 
 /**
  * Defines application features from the specific context.
