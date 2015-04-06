@@ -55,7 +55,7 @@ class FakeApiAdapter implements ApiAdapter
             $tracksResponse[] = [
                 'id' => 123456789,
                 'created_at' => '2015/03/28 21:39:51 +0000',
-                'duration' => $track['length'],
+                'duration' => 123000,
                 'tag_list' => '',
                 'genre' => '',
                 'title' => $track['title'],

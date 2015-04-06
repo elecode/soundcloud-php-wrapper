@@ -5,20 +5,18 @@ namespace Elecode\SoundCloud\ValueObject;
 class Track
 {
     private $id;
-    private $date;
-    private $duration;
     private $title;
+    private $description;
     private $secret;
 
-    public static function withIdDateDurationTitleAndSecret($argument1, $argument2, $argument3, $argument4, $argument5)
+    public static function withIdTitleDescriptionAndSecret($id, $title, $description, $secret)
     {
         $track = new Track();
 
-        $track->id = $argument1;
-        $track->date = new \DateTime($argument2);
-        $track->duration = $argument3;
-        $track->title = $argument4;
-        $track->secret = $argument5;
+        $track->id = $id;
+        $track->title = $title;
+        $track->description = $description;
+        $track->secret = $secret;
 
         return $track;
     }
@@ -28,19 +26,14 @@ class Track
         return $this->id;
     }
 
-    public function getDate()
-    {
-        return $this->date->format('Y-m-d H:i:s');
-    }
-
-    public function getDuration()
-    {
-        return $this->duration;
-    }
-
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     public function getSecretToken()

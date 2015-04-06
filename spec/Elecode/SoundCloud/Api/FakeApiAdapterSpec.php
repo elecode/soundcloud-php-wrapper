@@ -41,16 +41,15 @@ class FakeApiAdapterSpec extends ObjectBehavior
     function it_fakes_one_user_track()
     {
         $userId = 1234;
-        $lengthInSeconds = 314000;
         $title = "Oslo Metro";
-        $this->fakeTracks($userId, [['length' => $lengthInSeconds, 'title' => $title]]);
+        $this->fakeTracks($userId, [['title' => $title]]);
 
         $this->get("/users/{$userId}/tracks.json", ['oauth_token' => '1-123456-123456789-abcd123456789'])->shouldReturn(
             [
                 [
                     "id" => 123456789,
                     "created_at" => "2015/03/28 21:39:51 +0000",
-                    "duration" => $lengthInSeconds,
+                    "duration" => 123000,
                     "tag_list" => "",
                     "genre" => "",
                     "title" => $title,

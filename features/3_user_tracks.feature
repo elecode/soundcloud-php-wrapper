@@ -8,17 +8,17 @@ Feature: User tracks
 
   Scenario: user with single track
     Given I am authenticated user "php@soundcloud.com" with password "secret"
-    And I have a 314 seconds track "Oslo Metro"
+    And I have a track "Oslo Metro"
     When I request list of my tracks
-    Then my 314 seconds track "Oslo Metro" is in the list
+    Then my track "Oslo Metro" is in the list
 
     Scenario: user with two tracks
       Given I am authenticated user "php@soundcloud.com" with password "secret"
       And I have following tracks:
-        | Title              | Duration |
-        | Oslo Metro         | 314      |
-        | London Underground | 315      |
+        | Title              |
+        | Oslo Metro         |
+        | London Underground |
       When I request list of my tracks
       Then I have 2 tracks in list
-      And my 314 seconds track "Oslo Metro" is in the list
-      And my 315 seconds track "London Underground" is in the list
+      And my track "Oslo Metro" is in the list
+      And my track "London Underground" is in the list

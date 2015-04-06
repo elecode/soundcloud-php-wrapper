@@ -57,11 +57,10 @@ class SoundCloud
         $tracksData = $this->api->get("/users/{$user->getId()}/tracks.json", ['oauth_token' => $this->accessToken]);
         $tracks = [];
         foreach ($tracksData as $trackData) {
-            $tracks[] = Track::withIdDateDurationTitleAndSecret(
+            $tracks[] = Track::withIdTitleDescriptionAndSecret(
                 $trackData['id'],
-                $trackData['created_at'],
-                $trackData['duration'],
                 $trackData['title'],
+                $trackData['description'],
                 $trackData['secret_token']
             );
         }

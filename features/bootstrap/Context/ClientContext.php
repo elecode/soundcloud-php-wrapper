@@ -100,12 +100,12 @@ class ClientContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given I have a :arg2 seconds track :arg1
+     * @Given I have a track :arg1
      */
-    public function iHaveATrack($lengthInSeconds, $title)
+    public function iHaveATrack($title)
     {
         $me = $this->soundCloudWrapper->getMe();
-        $this->api->fakeTracks($me->getId(), [['length' => $lengthInSeconds, 'title' => $title]]);
+        $this->api->fakeTracks($me->getId(), [['title' => $title]]);
     }
 
     /**
@@ -118,17 +118,17 @@ class ClientContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then my :arg2 seconds track :arg1 is in the list
+     * @Then my track :arg1 is in the list
      */
-    public function iMySecondsTrackIsInTheList($duration, $title)
+    public function iMySecondsTrackIsInTheList($title)
     {
         /** @var Track $track */
         foreach ($this->trackList as $track) {
-            if ($track->getDuration() == $duration && $track->getTitle() == $title) {
+            if ($track->getTitle() == $title) {
                 return;
             }
         }
-        throw new \Exception(sprintf("Track '%s' with duration of %d seconds was not found", $title, $duration));
+        throw new \Exception(sprintf("Track '%s' was not found", $title));
     }
 
     /**
@@ -139,8 +139,7 @@ class ClientContext implements Context, SnippetAcceptingContext
         $tracks = [];
         foreach ($table->getHash() as $row) {
             $tracks[] = [
-                'length' => $row['Duration'],
-                'title' => $row['Title']
+                'title' => $row['Title'],
             ];
         }
         $me = $this->soundCloudWrapper->getMe();

@@ -63,14 +63,11 @@ class SoundCloudSpec extends ObjectBehavior
             [
                 [
                     "id" => 123456789,
-                    "created_at" => "2015/03/28 21:39:51 +0000",
-                    "duration" => 314,
                     "tag_list" => "",
                     "genre" => "",
-                    "title" => "Sample Track",
-                    "description" => "",
+                    "title" => "Sample Title",
+                    "description" => "Sample Description",
                     "secret_token" => "s-WdV4l",
-                    "secret_uri" => "https://api.soundcloud.com/tracks/123456789?secret_token=s-WdV4l"
                 ]
             ]
         );
@@ -78,11 +75,10 @@ class SoundCloudSpec extends ObjectBehavior
         $tracks = $this->getTracksFromUser($user);
         $tracks->shouldBeLike(
             [
-                Track::withIdDateDurationTitleAndSecret(
+                Track::withIdTitleDescriptionAndSecret(
                     123456789,
-                    '2015/03/28 21:39:51',
-                    314,
-                    "Sample Track",
+                    'Sample Title',
+                    'Sample Description',
                     "s-WdV4l"
                 )
             ]
